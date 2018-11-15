@@ -24,5 +24,5 @@ public class Vehicle {
   @Transient
   private Status status;
   @Column(name = "owner_id")
-  private String ownerId;
+  private Long ownerId;
 }
