@@ -1,5 +1,6 @@
 package org.vehicle.tracking.vehiclestatus.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -23,6 +24,7 @@ public class Vehicle {
   private String registrationNumber;
   @Transient
   private Status status;
+  @JsonIgnore
   @Column(name = "owner_id")
   private Long ownerId;
 }
