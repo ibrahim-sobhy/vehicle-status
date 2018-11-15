@@ -7,14 +7,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
 @Getter
 @Setter
+@Entity
 public class Vehicle {
+  @Id
   private String id;
+  @Transient
   private String registrationNumber;
+  @Transient
   private Status status;
+  @Column(name = "owner_id")
+  private String ownerId;
 }

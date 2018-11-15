@@ -1,18 +1,22 @@
 package org.vehicle.tracking.vehiclestatus.model;
 
+import lombok.*;
+
+import javax.persistence.*;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Singular;
-
+@Entity
 @Builder
 @AllArgsConstructor
-@Getter
+@NoArgsConstructor
+@Data
 public class Owner {
+  @Id
+  private Long id;
   private String name;
   private String address;
+  @OneToMany()
+  @JoinColumn(name="owner_id")
   @Singular
   private List<Vehicle> vehicles;
 }

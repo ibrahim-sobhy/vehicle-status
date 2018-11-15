@@ -16,10 +16,12 @@ import org.vehicle.tracking.vehiclestatus.model.Status;
 import org.vehicle.tracking.vehiclestatus.model.Vehicle;
 import org.vehicle.tracking.vehiclestatus.service.VehicleOwnerService;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.*;
 import static java.util.Optional.empty;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
@@ -31,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-public class VehicleStatusApiTest {
+public class VehicleOwnerApiTest {
 
   @InjectMocks
   private VehicleOwnerApi vehicleOwnerApi;
@@ -52,7 +54,7 @@ public class VehicleStatusApiTest {
   @Test
   public void shouldReturn204IfNoRecordReturned() throws Exception {
 
-    when(vehicleOwnerService.findAll()).thenReturn(empty());
+    when(vehicleOwnerService.findAll()).thenReturn(emptyList());
 
     mvc.perform(get("/api/owner")
         .contentType(MediaType.APPLICATION_JSON))
@@ -66,7 +68,7 @@ public class VehicleStatusApiTest {
 
     List<Owner> owners = sampleOfOwners();
 
-    when(vehicleOwnerService.findAll()).thenReturn(Optional.of(owners));
+    when(vehicleOwnerService.findAll()).thenReturn(owners);
 
     mvc.perform(get("/api/owner")
         .contentType(MediaType.APPLICATION_JSON))

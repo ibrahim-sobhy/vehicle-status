@@ -1,6 +1,7 @@
 package org.vehicle.tracking.vehiclestatus.api;
 
 import static org.springframework.http.ResponseEntity.noContent;
+import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.unprocessableEntity;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class VehicleOwnerApi {
 
 
   @Autowired
-  private VehicleOwnerService vehicleStatusService;
+  private VehicleOwnerService vehicleOwnerService;
 
   /**
    * Find all available owners with their vehicles.
@@ -31,9 +32,12 @@ public class VehicleOwnerApi {
    */
   @GetMapping
   public ResponseEntity<List<Owner>> findAll() {
-    return vehicleStatusService.findAll()
-        .map(ResponseEntity::ok)
-        .orElse(noContent().build());
+    List<Owner> owners = vehicleOwnerService.findAll();
+    if(owners.isEmpty()) {
+      return noContent().build();
+    }
+
+    return ok(owners);
   }
 
   /**
@@ -44,7 +48,7 @@ public class VehicleOwnerApi {
    */
   @PostMapping("/vehicle")
   public ResponseEntity<Vehicle> pingVehicle(@RequestBody Vehicle vehicle) {
-    return vehicleStatusService.ping(vehicle.getId())
+    return vehicleOwnerService.ping(vehicle.getId())
         .map(ResponseEntity::ok)
         .orElse(unprocessableEntity().build());
   }
